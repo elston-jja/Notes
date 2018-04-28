@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// 3x3 Solver
+
+void create_matrix(float a[3][3]);
+float calc_det(float a[3][3]);
+
+int main()
+{
+    float a[3][3];
+    create_matrix(a);
+    float det = calc_det(a);
+    printf("The determinate was: %f", det);
+}
+
+void create_matrix(float a[3][3])
+{
+    for(int rows = 0; rows < 3; rows++)
+    {
+	for(int col = 0; col < 3; col++)
+	{
+	    printf("Please enter value for a[%d][%d]: ",rows+1,col+1);
+	    scanf("%f", &a[rows][col]);
+	}
+    }
+    printf("\nStrored Matrix\n");
+}
+
+float calc_det(float a[3][3])
+{
+    float det;
+    float C1 = a[1][1] * a[2][2] - a[2][1] * a[1][2];
+    float C2 = a[0][1] * a[2][2] - a[2][1] * a[0][2];
+    float C3 = a[0][1] * a[1][2] - a[1][1] * a[0][2];
+    det = a[0][0] * C1 - a[1][0] * C2 + a[3][0] * C3;
+    return det;
+}

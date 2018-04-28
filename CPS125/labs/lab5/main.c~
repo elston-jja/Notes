@@ -1,0 +1,51 @@
+#include <stdio.h>
+
+int main()
+{
+    int num_samples, beach_num, num_orgs_per_100, total;
+    FILE * data = fopen("data.txt", "r");
+    double sample_avg = 0;
+
+    if(data)
+    {
+
+	printf("Beach | Sample Num |              Samples             | Samples Average | Safe or Not Safe\n");
+	
+	while(!feof(data))
+	{
+	    fscanf(data,"%d %d", &beach_num, &num_samples);
+
+	    printf(" %3d  |%7d     |", beach_num, num_samples);
+
+	    total = 0;
+	    
+	    for(int i = 0; i < num_samples; i++)
+	    {
+		fscanf(data, "%d", &num_orgs_per_100);
+		total += num_orgs_per_100;
+		printf("%d", num_orgs_per_100);
+
+		if(i+1 < num_samples)
+		    printf(", ");
+		else
+		{}
+	    }
+	    sample_avg = total/num_samples;
+
+	    printf("| %.1lf", sample_avg);
+
+	    if (sample_avg < 3500)
+		printf("| Safe\n");
+	    else
+		printf("| Not Safe\n");
+
+	    if(beach_num == -17)
+		break;
+	}
+	
+
+	fclose(data);
+    }
+    else
+	printf("Unable to open file");
+}

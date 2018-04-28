@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+int main()
+{
+    char * list[3];
+
+    list[1] = "test";
+    list[1] = 'a';
+    list[1] = &("test");
+    
+    return 0;
+}

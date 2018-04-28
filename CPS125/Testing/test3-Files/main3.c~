@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main()
+{
+    FILE* data = fopen("lists.txt", "r");
+
+    int data_max = 5;
+    int array1[data_max];
+    int array2[data_max];
+
+    for(int i = 0; i < data_max; i++ )
+    {
+	fscanf( data,"%d %d", &array1[i], &array[2]);
+    }
+
+    printf("Array1 | Array 2")
+    for(int n = 0; n < data_max; n++)
+    {
+	printf("%7d|%7d")
+    }
+}

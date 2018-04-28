@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+
+void create_array(float *array, int rows, int cols)
+{
+    int init_size = 9;
+    int x = , y;
+    array = (float)malloc(init_size*sizeof(float));
+}
+
+int main()
+{
+    float * array;
+
+    
+    
+    
+    
+    return 0;
+}

@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+    FILE * data = fopen("data.dat", "r");
+    int row, col;
+
+    fscanf(data, "%d %d", &row, &col);
+
+    double a[row][col];
+
+    for(int i = 0; i < row; i++)
+    {
+	for (int j = 0; j < col; j++)
+	{
+	    fscanf("%lf",&a[i][j]);
+	}
+    }
+
+    fclose(data);
+    
+}
