@@ -1,0 +1,158 @@
+\documentclass[12pt, titlepage, oneside]{article}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{siunitx, booktabs, amsmath, enumitem, pdfpages,mathrsfs,tabularx,caption, graphicx, pgfplots, textcomp,wrapfig, commath, svg}
+
+\usepackage{parskip}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{detect-weight=true, detect-family=true}
+
+\setlength\parindent{0pt}
+
+\let\oldhat\hat
+\let\oldvec\vec
+\newcommand{\cross}{\bm{\times}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\usepackage{bm}
+\renewcommand{\vec}[1]{\oldvec{\bm{#1}}}
+\renewcommand{\hat}[1]{\oldhat{\bm{#1}}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\de}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+
+\begin{document}
+
+\setcounter{section}{1}
+\setcounter{page}{3}
+
+\section{Counting Techniques: For Counting Problems}
+
+\subsection{Multiplicity}
+
+Suppose we are required to perform a task $n$ which has $k$ steps, but each step does not affect the step before or the step after ($n_{k-1}$ and $n_{k+1}$ are not affected). There is a rule known as the \b{Multiplicity} which states that the sample space would be
+\begin{align}
+|S| = n_1 \cross n_2 \cross n_3 \cross ... \cross n_k
+\end{align}
+Think about flipping a coin 3 times: there are 2 possible outcomes for each coin toss, and the previous toss does not affect the toss after. Since there would be two possible outcomes $3$ times, our sample space would be $2 \cross 2 \cross 2 = 2^3 = 8$
+
+\subsection{r - Permutations}
+
+Suppose we are required to know how many different ways to organize $n$ \b{distinct} objects in $r$ spots, we realize this is a \b{Permutation} problem.
+
+We have 2 cases for permutations:
+
+If we have $n$ spots and $n$ objects ($r = n$): each time we place an object, the next object has one fewer spots to occupy, so by the multiplicity rule we get $n!$
+\begin{align*}
+  n! = n \cross (n-1) \cross (n-2) \cross ... \cross 2 \cross 1 
+  \end{align*}
+  If we have $n$ spots and $r$ objects ($r < n$): each time we place an object, the next object has one fewer spots to occupy, so the multiplicity rule states we get $n!/(n-r)!$
+  \begin{align*}
+    \frac{n!}{(n-r)!} = \frac{n \cross (n-1) \cross (n-2) \cross ... \cross (n-r+2) \cross (n-r+1) \cross (n-r)!}{(n-r)!}
+  \end{align*}
+    the $(n-r)!$ cancel out
+  \begin{align*}
+    \frac{n!}{(n-r)!} = n\cross (n-1) \cross (n-2) \cross ... \cross (n-r+2) \cross (n-r+1)
+  \end{align*}
+  The formula above is known as the general formula of a permutation, the notation is written as nPr.
+  \begin{align}
+    _n\text{P}_r = \frac{n!}{(n-r)!} = n\cross (n-1) \cross (n-2) \cross ... \cross (n-r+2) \cross (n-r+1)
+  \end{align}
+  \de{
+    \b{Example 2.10} Imagine we have a printed circuit board with 8 locations for 4 \b{distinct} components. How many ways can we place the 4 distinct chips?
+    
+    \b{Ans.} Since we know that each component is distinct we can solve this using the multiplicity rule. The first time we place a chip there are 8 places, then for the next chip we have 7 places, then 6 places for the next, and so on.
+    \begin{align*}
+      8 \cross 7 \cross 6 \cross 5 = 1680
+    \end{align*}
+    We can also use r-permutations to solve this problem faster.
+    \begin{align*}
+      _8\text{P}_4 = \frac{8!}{(8-4)!} = \frac{8\cross 7 \cross 6 \cross 5 \cross 4!}{4!} = 8\cross 7 \cross 6 \cross 5
+      \end{align*}   
+    }
+
+    \subsubsection{Permutations of Similar Items}
+
+    Suppose we have $n$ spots and we need to place $n$ objects. The difference here is our $n$ objects are composed of sets of similar type objects. That is $n_1$ is the set of one type of objects, $n_2$ is the set of another type, so on and so forth.
+
+    A more mathematical approach: $n_i$ sets of objects of type $i$, where $i = 1,2,..,r$ and $n = n_1 + n_2 + ... + n_i$. The number of distinct permutations of $n$ in $n$ spots is
+    \begin{align}
+      \frac{n!}{n_1! n_2! ... n_r!}
+    \end{align}
+    \b{Proof:} Suppose all objects were distinct, thus we would have $n!$ distinct ways of organizing such objects. Now if we consider the identical types, we see that for each type $i$ we counted by $n_i$ times over. Thus we divide by their factorial to eliminate the identical combinations.
+    
+    \de{
+      \b{Example 2.11} In a hospital there are 3 knee surgeries and 2 hip surgeries on the schedule for a surgeon. How many ways can the surgeon organize their schedule?
+
+      \b{Ans.} The total combinations of surgeries which can occur is $5!$, but since $3!$ combinations considers identical knee surgeries, and $2!$ combinations considers identical hip surgeries. We have to divide to remove the combinations that are not identical.
+      \begin{align*}
+        \frac{5!}{3!2!} = 10
+      \end{align*}
+      Thus there are 10 different ways we can organize 3 knee surgeries and 2 hip surgeries. 
+    }
+
+    \subsubsection{r-Permutations of Similar Items}
+
+    Suppose we have $n$ spots and $r$ objects ($r < n$). $r$ contains sets of identical objects of type $i = 1,2,..,k$, such that $r = r_1 + r_2 + .. + r_k$. As always, we consider the distinct case and divide by the sets of identical combinations: if there were $n$ spots and $r$ distinct objects then we have $_n\text{P}_r$ distinct combinations. Now we divide by the sets of identical combinations,
+    \begin{align*}
+      \frac{_n\text{P}_r}{r_1!r_2!...r_k!} = \frac{n!}{(n-r)! \cross (r_1!r_2!...r_k!)}
+    \end{align*}
+
+    \de{
+      \b{Example: } Suppose we have 8 spots on a printed circuit board and two sets of 2 identical chips, how many distinct combinations do we have?
+
+      \b{Ans.} The distinct case would be $_8\text{P}_4$ different combinations, but now since there are 2 identical chips of 1 type and 2 identical chips of another type, we divide by $2! 2!$.
+      \begin{align*}
+        \frac{_8\text{P}_4}{4!} = \frac{8 \cross 7 \cross 6 \cross 5}{2! 2!} = 420
+        \end{align*}      
+      }
+      \subsection{r-Combinations}
+
+      Suppose we have $n$ \b{distinct} items and we want to pick a set of $r$ items. In other words, we have $n$ distinct items and we want to choose a set of $r$ items. We see that each time we pick an item, we have a smaller set to choose from so it resembles $_n\text{P}_r$, but remember we are picking sets (not individual items), so we must divide by the total amount of redundant sets which is $r!$. The notation we use is $_n\text{C}_r$
+      \begin{align}
+        _n\text{C}_r = {n \choose r} = \frac{_n\text{P}_r}{r!} = \frac{n!}{r!(n-r)!}
+      \end{align}
+
+      \de{
+        \b{Example 2.13} Suppose we have a printed circuit board with 8 locations for 5 identical components. How many ways can we design this board?
+
+        \b{Ans.} This is the same as performing an r-Permutation with 1 set of identical components.
+        \begin{align*}
+          \frac{_8\text{P}_5}{5!} = {8 \choose 5} = \frac{8!}{(8-5)! \cross 5!} = 56
+          \end{align*}
+        }
+
+        \de{
+          \b{Example 2.14} Suppose you buy 6 parts from a bin of 50 without replacement. In the bin of 50, 3 parts are defective and 47 parts are up to specifications. How many different combinations of the 6 parts you buy contains 2 defectives?
+
+          \b{Ans.} Since we have 3 parts defective, we need to find the total combinations of being able to pick 2 defective parts: $_3\text{C}_2$. Now we need to pick the rest of the parts from the working parts, so we get $_{47}\text{C}_4$. By multiplicity, we can multiply these steps together to get the total combinations involving 2 defective parts.
+          \begin{align*}
+            {3 \choose 2}{47 \choose 4} = 535095
+            \end{align*} 
+          }
+
+          \de{
+            \b{Example 2.41} Suppose we have produced 140 chips and know that 10 chips produced are not up to specification. An officer performs an inspection of 5 chips. How many samples can the officer find at least 1 chip not up to specification.
+
+            \b{Ans.} Since we are looking for at least one chip not up to specification, we must also consider the combinations where there are more than 1 chip which does not match specification. Like the last example, we first choose the amount of chips not up to specification, then choose working chips for the rest. 
+            \begin{align*}
+              {10 \choose 1} {130 \choose 4} +
+              {10 \choose 2} {130 \choose 3} +
+              {10 \choose 3} {130 \choose 2} +
+              {10 \choose 4} {130 \choose 1} +
+              {10 \choose 5} {130 \choose 0}
+              \end{align*}
+              This method is tedious, and there is a faster method. We can take the complement where we find the total combinations which can be chosen then subtract the combinations where all the chips are working up to specification.
+              \begin{align*}
+                {140 \choose 5} - {130 \choose 5}{10 \choose 0}
+              \end{align*}
+
+              Both methods yield the same result, but one is much more faster and can be useful when working on exam problems.
+          }
+
+\end{document}

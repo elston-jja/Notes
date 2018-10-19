@@ -1,0 +1,218 @@
+\documentclass[12pt, titlepage, oneside]{article}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{siunitx, booktabs, amsmath, enumitem, pdfpages,mathrsfs,tabularx,caption, graphicx, pgfplots, textcomp,wrapfig, commath, svg}
+
+\usepackage{parskip}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{detect-weight=true, detect-family=true}
+
+\setlength\parindent{0pt}
+
+\let\oldhat\hat
+\let\oldvec\vec
+\newcommand{\cross}{\bm{\times}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\usepackage{bm}
+\renewcommand{\vec}[1]{\oldvec{\bm{#1}}}
+\renewcommand{\hat}[1]{\oldhat{\bm{#1}}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\de}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+
+\begin{document}
+
+\setcounter{section}{2}
+\setcounter{page}{6}
+
+\section{Probability}
+
+Probability is a function assigned to the events of a sample space and represent our belief in what the outcomes of an experiment are likely to be.
+
+Suppose our sample space $S$ has finite points \{$s_1,s_2,..,s_N$\}. We assign non-negative numbers $p_i$ (probability) to each point in the sample space $s_i$ where $i = 1,2,..,N$. The following must always be true
+\begin{align} \sum_{i=1}^{N} p_i = 1 \end{align}
+In other words, the sum of the probability for each point in our sample space $S$ has to equal to 1.
+
+We can further idea as follows: define for any event $\mathcal{E}$
+\begin{align*}
+  P(\mathcal{E}) = \sum_{i:s_i \in \mathcal{E}} p_i
+\end{align*}
+In words, the equation states that the probability of an event $\mathcal{E}$ is the sum of the probabilities that belong to the points in the sample space which coincide with $\mathcal{E}$. This concept is very simple but the equation above looks very daunting, an example should help.
+
+\de{
+  \b{Example 2.16} There is a sample space $S$ with the sample points \{$a,b,c,d$\} with respected probabilities \{$0.1,0.3,0.5,0.1$\}. Let there be an event $\mathcal{A}$ = \{$a,b$\}, and let there be an event $\mathcal{B}$ = \{$b,c,d$\}. Find the probability of $\mathcal{A}$ and the probability of $\mathcal{B}$.
+  \\
+  
+  \b{Ans.} $P(\mathcal{A}) = 0.1 + 0.3 = 0.4$; $P(\mathcal{B}) = 0.3 + 0.5 + 0.1 = 0.9$.
+
+  Notice the sum of the probability of all events in the sample space equals to 1.
+}
+
+There is a special case which considers equally likely outcomes corresponds to $p_i = \frac{1}{N}$, where $N$ is the total number of outcomes. If we look at the event $\mathcal{E}$ then it's always the total number of outcomes which produce $\mathcal{E}$ over the total number of outcomes $N$.
+\begin{align}
+  P(\mathcal{E}) = \frac{|\mathcal{E}|}{N}
+\end{align}
+
+\de{
+  \b{Example 2.18} There are 50 components, containing 47 working and 3 non-working. If we sample 6 components, what is the probability of getting exactly 2 defectives
+
+  \b{Ans.} The total number of outcomes
+  \begin{align*} N = {50 \choose 6} = 15890700 \end{align*}
+  The number of sample points in our sample space in $\mathcal{E}$
+  \begin{align*} |\mathcal{E}| = {3 \choose 2} {47 \choose 4} = 535095 \end{align*}
+  Thus the probability of $\mathcal{E}$
+  \begin{align*} P(\mathcal{E}) = \frac{|\mathcal{E}|}{N} = \frac{535095}{15890700} = 0.034 \end{align*}  
+}
+
+\newpage
+
+If we decided to repeat the calculations of Example 2.18 with $X$ number of defective parts in our sample of 6 components, we get the following distribution
+
+\begin{center}
+\begin{tabular}{cc}
+  $X$ & $P[X]$ \\ \toprule
+  0 & 0.676 \\
+  1 & 0.290 \\
+  2 & 0.034 \\
+  3 & 0.010
+\end{tabular}
+\end{center}
+
+\de{
+  \b{Exercise 2.66} Credit cards contain 16 digits. But only $10^6$ digits are valid. If you were to pick a 16 digit number at random, what is the probability it is a working credit card number.
+
+  \b{Ans.} The total number of credit card number can be calculate by utilizing the rule of multiplicity
+  \begin{align*} N = 10^6 \end{align*}
+  The number of card numbers of 16 digits which actually work is
+  \begin{align*} |\mathcal{E}|  = 10^8 \end{align*}
+  Thus the probability of choosing a valid credit card number is
+  \begin{align*} P(\mathcal{E}) = \frac{\mathcal{|E|}}{N} = \frac{10^8}{10^{16}} \end{align*}
+}
+
+\de{
+  \b{Exercise 2.68} A message can follow different server paths on a network to get to the same destination. The first server stack consists of 5 servers, the second server stack contains 5 servers, and the third server stack has 4 servers.
+
+  \begin{enumerate}
+    \item How many paths are available for a message to take?
+
+    \b{Ans.} \begin{align*}N = 5 \cross 5 \cross 4 = 100 \end{align*}
+    \item What is the probability the message will go through the first server on the third server stack?
+
+    \b{Ans.} \begin{align*}P(\mathcal{E}) = \frac{\mathcal{|E|}}{N} = \frac{5 \cross 5 \cross 1}{100} = \frac{1}{4}\end{align*}
+    \end{enumerate}  
+  }
+
+  \subsection{Axioms of Probability}
+
+  A probability $P$ is assigned to each subset of outcomes (event $\mathcal{E}$) in a collection of subset of outcomes (the sample space $S$) of a random experiment. $P$ has to satisfy the following assumptions:
+
+  \begin{enumerate}
+    \item $P(S) = 1$ : The probability for all events in the sample space must be equal to 1
+    \item $0 \leq P(\mathcal{E}) \leq 1$ : The probability for any subset of events in the sample space must be greater than zero and less than or equal to 1
+    \item $E_1 \cap E_2 = \emptyset \implies P(E_1 \cup E_2) = P(E_1) + P(E_2)$ : If two events are \b{mutually disjoint} (they happen at the same time, but do not influence the other), then the probability of one event or the other occurring is the sum of their individual probabilities
+  \end{enumerate}
+
+  By using the result of axiom 3, we are able to extend it to $n$ events.
+
+  If $E_i \cap E_j = \emptyset $ for all $i \neq j$ then
+  \begin{align}
+    P(\cup_{i=1}^{n} E_i) = \sum_{i=1}^{n} P(E_i)
+  \end{align}
+  If the number of potential events is infinite, then
+    \begin{align}
+    P(\cup_{i=1}^{\infty} E_i) = \sum_{i=1}^{\infty} P(E_i)
+    \end{align}
+
+    If $A$ and $B$ are not mutually exclusive, then we can draw Venn diagrams to show
+    \begin{align}
+      P(A\cup B) = P(A) + P(B) - P(A \cap B)
+    \end{align}
+    The reason we subtract $P(A \cap B)$ is because we counted that specific area twice when adding the probability of $A$ and $B$
+
+    Likewise, for events $A, B, C$
+    \begin{align}
+      P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C) 
+    \end{align}
+    You can prove this using visual proofs or using a direct proof by elements.
+
+    \de{
+      \b{Exercise 2.82} $P(A) = 0.3$, $P(B) = 0.2 $, $ P(A \cap B) = 0.1$ : what is $P(A\cup B)$? \vspace{2mm}
+
+      \b{Ans.} $P(A \cup B) = P(A) + P(B) - P(A \cap B) = 0.2 + 0.3 - 0.1 = 0.4$
+    }
+
+    \de{
+      \b{Exercise 2.95} A bar code must have black bars separated by white bars. There are 3 narrow black bars denoted by $b$, and two wide black bars denoted by $B$. Likewise, there are 3 narrow white spaces denoted by $w$, and only 1 wide white space denoted by $W$(A bar considers only the black, a space considers only the white).\vspace{2mm}
+
+      \begin{enumerate}
+        \item What is the probability the first bar is wide or the second bar is wide? \vspace{2mm}
+        
+        \b{Ans.} Let $A$ be the event the first bar is wide, and let $B$ be the event the second bar is wide.
+        \begin{align*}
+          P(A \cup B) &= P(A) + P(B) - P(A \cap B) \\
+          &= \dfrac{\dfrac{4!}{1!3!} + \dfrac{4!}{1!3!} - \dfrac{3!}{3!}}{\dfrac{5!}{2!3!}} = 0.7
+        \end{align*}
+
+        \item What is the probability the first nor the second bar is wide? \vspace{2mm}
+
+        \b{Ans.}
+        \begin{align*}
+          P(A'\cap B') = \frac{\dfrac{3!}{1!2!}}{\dfrac{5!}{2!3!}} = \frac{3}{10} = 0.3
+        \end{align*}
+        The easier calculation is simply the complement
+        \begin{align*}
+          P(A' \cap B') = 1 - P((A' \cup B')') = 1- P(A \cap B) = 1-0.7 = 0.3
+        \end{align*}        
+        \end{enumerate}
+      }
+      \de
+      {
+        \begin{enumerate}
+          \setcounter{enumi}{2}
+          \item What is the probability the first bar is wide or the second bar is narrow?
+          \vspace{2mm}
+
+          \b{Ans.} Let $A$ be the event the first bar is wide, and let $B$ be the event the second bar is narrow.
+          \begin{align*}
+            P(A \cup B)  = P(A) + P(B) - P(A \cap B) = \dfrac{\dfrac{4!}{1!3!} + \dfrac{4!}{2!2!} - \dfrac{3!}{1!2!}}{\dfrac{5!}{2!3!}} = 0.7
+            \end{align*}
+          \end{enumerate}
+        }
+
+        \de{
+          \b{Example 2.97} Passwords are exactly 8 characters wrong with repetitions allowed from 26 lower case, 26 upper case, and 10 integers. If $A =$ \{only letters\} and $B = $\{ only integers\} Find:
+
+          \begin{enumerate}
+            \item $P(A \cup B)$
+            \vspace{2mm}
+            
+            \b{Ans.} \begin{align*}
+                       P(A \cup B) = P(A) + P(B) - P(A \cap B) = \frac{52^8}{62^8} + \frac{10^8}{62^8} - 0 
+                       \end{align*}
+           \item $P(A' \cup B)$
+           \vspace{2mm}
+           
+           \b{Ans.} \begin{align*}
+                      P(A' \cup B) = \frac{10^8}{62^8} 
+                    \end{align*}
+           \item $P($exactly 1 or two integers$)$
+           \vspace{2mm}
+
+           \b{Ans. } Let $A$ be the event of exactly 1 integer, and let B be the event of exactly 2 integers
+           \begin{align*}
+             P(A) &= \dfrac{{ 8 \choose 1 }  \cross 10 \cross 52^7}{62^8}\\[2mm]
+             P(B) &= \dfrac{{ 8 \choose 2 } \cross 10^2 \cross 52^6}{62^8}\\[2mm]
+             P(A \cup B) &= P(A) + P(B) = 0.6302
+           \end{align*}
+           
+            \end{enumerate}
+          
+        }
+    
+  \end{document}

@@ -1,0 +1,215 @@
+\documentclass[12pt, titlepage, oneside]{article}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{siunitx, booktabs, amsmath, enumitem, pdfpages,mathrsfs,tabularx,caption, graphicx, pgfplots, textcomp,wrapfig, commath, svg}
+
+\usepackage{amssymb}
+
+\usepackage{parskip}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{detect-weight=true, detect-family=true}
+
+\setlength\parindent{0pt}
+
+\let\oldhat\hat
+\let\oldvec\vec
+\newcommand{\cross}{\bm{\times}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\usepackage{bm}
+\renewcommand{\vec}[1]{\oldvec{\bm{#1}}}
+\renewcommand{\hat}[1]{\oldhat{\bm{#1}}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\de}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+
+\begin{document}
+	\setcounter{section}{8}
+	\setcounter{page}{22}
+
+    \section{Cumulative Distributive Functions }
+
+    A \b{cumulative distributive function} is defined as follows
+    \begin{align}
+      F(x) = \int_{-\infty}^{x} f(t) dt
+    \end{align}
+    for $-\infty < x < \infty$
+
+    Hence $P(a < X \leq b)  = F(b) - F(a)$
+
+    \de{
+      \b{Example 4.3} The current in a thin copper wire measured in milliamperes as a continuous random variable $X$. Assume the range of $X$ is $[4.9, 5.1]$ mA, and assume the probability density function $f(x) = 5$ for $4.9 \leq x \leq 5.1$. Find the cumulative distributive function.
+      \\
+
+      \b{Ans.}
+      if $x < 4.9, f(x) = 0$ therefore
+      \begin{align*}
+        F(x) = 0, \text{ for } x < 4.9
+      \end{align*}
+      if $ 4.9 \leq x < 5.1$ then
+      \begin{align*}
+        F(x) = \int_{4.9}^{x} f(t) dt = \int_{4.9}^{x} 5 dt = 5x - 5(4.9) = 5x - 24.5 \text{ for } 4.9 \leq x \leq 5.1
+      \end{align*}
+      if $x \geq 5.1$ then
+      \begin{align*}
+        F(x) = 1 \text{ for } x > 5.1
+      \end{align*}
+      Therefore,
+      \begin{align*}
+        F(x) = \begin{cases} 0 & x < 4.9 \\ 5x-24.5 & 4.9 \leq x < 5.1\\ 1 & 5.1 \leq x  \end{cases}
+        \end{align*}
+
+      }
+      
+      Recall the relation
+      \begin{align}
+        f(x) = \frac{d}{dx}F(x)
+      \end{align}
+
+      \de{
+        \b{Example 4.45} Reaction time $X$ has a cumulative distributive function
+        \begin{align*}
+          F(x) \begin{cases} 0 & x < 0 \\ 1-e^{-0.10x} & 0 \leq x \end{cases}
+        \end{align*}
+        Find the p.d.f
+        \\
+
+        \b{Ans.} Differentiate $F$
+        \begin{align*}
+          f(x) = \begin{cases}0 & x < 0 \\ 0.10e^{-0.10x} & 0 \leq x\end{cases}
+          \end{align*}
+        
+      }
+
+      \de{
+        \b{Example 4.17 } Given
+        \begin{align*}
+          F(x) = \begin{cases} 0 & x < 0 \\ 0.20x & 0 \leq x < 5 \\ 1 & x \geq 5\end{cases}
+        \end{align*}
+        Find $P(X < 2.8)$, $P(X > 6)$, and $P(X < -2)$
+        \\
+
+        \b{Ans.}
+        \begin{align*}
+          P(X < 2.8) &= F(2.8) = 0.20(2.8) = 0.56\\
+          P(X > 6) &= 1- F(6) = 1-1 = 0\\
+          P(X < -2) &= F(-2) = 0         
+          \end{align*}
+       
+        }
+
+        \de{
+          \b{Example 4.46 } $X$ is the number of minutes after 8:00am that you arrive at work. The p.d.f is
+          \begin{align*}
+            f(x) = \begin{cases} 0 & x < 0 \\ 0.10e^{-0.10x} & 0 \leq x \end{cases}
+          \end{align*}
+          Find the probability we arrive before 8:40am on two or more days out of a week(5 days).
+          \\
+
+          \b{Ans.} First we need to determine the c.d.f
+          \begin{align*}
+            F(x) = \begin{cases} 0 & x < 0 \\ \int_0^x 0.10e^{-0.10x} = 1-e^{-0.10x} & 0 \geq x\end{cases}
+          \end{align*}
+          Now we need to find the probability we arrive before 40 minutes
+          \begin{align*}
+            p = F(40) = 1 - e^{-4} = 0.9817
+          \end{align*}
+          Now we need to use binomial distributions. Let $Y$ be the discrete random variable for the amount of times we arrived before 8:40
+          \begin{align*}
+            P(Y = 0) = \binom{5}{0} (0.9817)^0 (1-0.9817)^5 \approx 0\\
+            P(Y = 1) = \binom{5}{1} (0.9817)^0 (1-0.9817)^4 \approx 0
+          \end{align*}
+          So we know $P(Y \geq y) = 1 - P( Y < y)$
+          \begin{align*}
+            P(Y \geq 2) = 1 - 0 - 0 = 1
+            \end{align*}
+      }
+
+      Suppose that $X$ is a continuous random variable with probability density function $f(x)$. The \b{mean} or \b{expected value} of $X$, denoted by $\mu$ or $E(X)$, is
+      \begin{align}
+        \mu = E(X) = \int_{-\infty}^{\infty} x f(x) dx
+      \end{align}
+      The \b{variance} of $X$, denoted as $V(X)$ or $\sigma^2$, is
+      \begin{align}
+        \mu^2 = V(X) = \int_{-\infty}^{\infty}(x-\mu)^2 f(x)dx = \int_{-\infty}^{\infty} x^2 f(x) dx - \mu^2
+      \end{align}
+      The \b{standard deviation} of $X$ is $\sigma = +\sqrt{\sigma^2}$
+
+      \de{
+        \b{Example 4.6 } Suppose
+        \begin{align*}
+          f(x) = \begin{cases} 5 & 4.9 < x < 5.1\\ 0 & \text{else} \end{cases}
+        \end{align*}
+        Find the mean and variance of $X$.
+
+        \b{Ans.}
+        \begin{align*}
+          E[X] = \int_{4.9}^{5.1}xf(x) \enspace dx = \int_{4.9}^{5.1}5x \enspace dx = \frac{5}{2}(5.1^2 - 4.9^2) = 5\\[2mm]
+          V[X] = \int_{4.9}^{5.1}(x-\mu)^2f(x) \enspace dx = \int_{4.9}^{5.1} 5(x-5)^2 \enspace dx = 0.0033
+        \end{align*}
+      
+      }
+
+      It is important to note that just like the discrete case
+      \begin{align}
+        E[h(X)] = \int_{-\infty}^{\infty} h(x) f(x) \enspace dx
+        \end{align}
+            \de{
+        \b{Example 4.7 } Referring to Example 4.6. Suppose $X$ represents the current in milliamperes and suppose there exists a resistance of $R = 100$ ohms. The power function $P$ in watts is given by the function $P = 10^{-6}RI^2$. To recall the current has the following p.d.f
+        \begin{align*}
+          f(x) = \begin{cases} 5 & 4.9 \leq x < 5.1 \\ 0 & \text{else} \end{cases}
+          \end{align*}
+          Find the expected power.\\
+
+          \b{Ans.} We know that $P(I) = 10^{-6}(100) I^2 =  10^{-4}I^2$, and $I = X$. So we are trying to find the mean of
+          \begin{align*}
+            E[P(X)] = (10^{-4})\int_{4.9}^{5.1}x^2\enspace dx = 0.00050
+            \end{align*}
+         
+      }
+
+      \de{ \b{Example 4.45 } $X$ has a p.d.f
+        \begin{align*}
+          f(x) = \begin{cases} \dfrac{2}{x^3} & x > 1 \\ 0 & \text{else} \end{cases}
+        \end{align*}
+        Find the mean and variance
+        
+        \b{Ans.}
+        \begin{align*}
+          E[X] = \int_1^\infty \dfrac{2}{x^3} x \enspace dx = 2 \enspace \enspace E[X^2] = \int_1^\infty \frac{2}{x^3}x^2 \enspace dx = \infty
+        \end{align*}
+        Since $V[X] = E[X^2] - (E[X])^2 = \infty$ 
+        
+        
+      }
+
+      \de{
+        \b{Example.(Inverse Problem)} Distribution of gravel sold (tons) in a week is a continuous $X$ with p.d.f
+        \begin{align*}
+          f(x) = \begin{cases} \dfrac{3}{2}(1-x^2) & 0 \leq x \leq 1 \\ 0 & \text{else} \end{cases}
+        \end{align*}
+        Find the median, also called the 50$^{th}$ percentile.
+        \\
+
+        \b{Ans.} We need to find an $X=m$ such that $F(m) = 0.50$.
+        \begin{align*}
+          F(m) = \int_{0}^{m} \dfrac{3}{2}(1-x^2) \enspace dt &= \dfrac{3}{2}(m-\dfrac{m^3}{3})
+        \end{align*}
+        Now we solve for $m$ as we set the condition that $F(m) = 0.50$
+        \begin{align*}
+          0.5 = \frac{3}{2}(m- \frac{m^3}{3})\\[2mm]
+          m^3 -3m +1 = 0
+        \end{align*}
+
+        By trial and error, we find $m = 0.347$
+        
+      }
+      
+    
+      
+\end{document}

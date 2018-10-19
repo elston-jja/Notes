@@ -1,0 +1,85 @@
+\documentclass[12pt, titlepage, oneside]{article}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{siunitx, booktabs, amsmath, enumitem, pdfpages,mathrsfs,tabularx,caption, graphicx, pgfplots, textcomp,wrapfig, commath, svg}
+
+\usepackage{amssymb}
+
+\usepackage{parskip}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{detect-weight=true, detect-family=true}
+
+\setlength\parindent{0pt}
+
+\let\oldhat\hat
+\let\oldvec\vec
+\newcommand{\cross}{\bm{\times}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\usepackage{bm}
+\renewcommand{\vec}[1]{\oldvec{\bm{#1}}}
+\renewcommand{\hat}[1]{\oldhat{\bm{#1}}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\de}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+
+\begin{document}
+	\setcounter{section}{9}
+	\setcounter{page}{26}
+    \section{Normal Distribution Approximations}
+    \subsection{Normal Approximation to Binomial}
+    \begin{itemize}
+      \item Normal arises when adding many similar independent quantities.
+      \item Binomial is the sum of independent binomial random variables
+    \end{itemize}
+    Let $X \thicksim Binomial(n,p)$. We know $\mu = np$, and $\sigma^2 = np(1-p)$. Normal approximation says that $P(X \leq x)$ can be approximated by a normal
+    \begin{align}
+      X \thicksim N(np,np(1-p))
+    \end{align}
+    And can be evaluated using normal tables by standardization if $n$ is sufficiently large
+    \begin{align}
+      P(X \leq x) = P\Bigg(Z \leq \frac{x - np}{\sqrt{np(1-p)}}\Bigg)
+    \end{align}
+    We need to make sure that the $\mu = np$ and $\sigma^2 = np(1-p)$ is greater than 5 ($\mu, \sigma^2 > 5$)
+
+    The reason for the mean and the variance to be greater than 5, is because the approximation only works when the distribution is near the center.
+
+    \de{
+      \b{Example 4.17} Digital communication channel receives $X$ number of bits as error and can be modelled as a $Binomial(16000000, 0.00001)$.
+      \\
+
+      \b{Ans.} The answer to this question is very difficult to compute
+      \begin{align*}
+        P(X \leq 150) = \sum_{x = 0}^{150} \binom{16000000}{x}(0.00001)^x(0.99999)^1{6000000}
+      \end{align*}
+    }
+
+    There is one additional note about the normal approximation to the binomial distribution: we have to get a bit more accurate. We add and subtract 0.5 from $x$ in order to account for a wider distribution.
+    \begin{align}
+      P(X \leq x) = P(X \leq x + 0.5 ) = P\Bigg(Z \leq \frac{x+0.5 - np}{\sqrt{np(1-p)}}\Bigg)\\[2mm]
+      P(x  \leq X) = P( x - 0.5 \leq X ) = P\Bigg(\frac{x-0.5 - np}{\sqrt{np(1-p)}} \leq Z\Bigg)
+    \end{align}
+
+    \de{
+      \b{Example 4.18} Recall Example 4.17 above. We can compute that much more easily with a normal distribution approximation
+
+      We know $\mu = np = 160$, $\sigma = \sqrt{np(1-p)} = 12.6490$, thus
+      \begin{align*}
+        P(X \leq 150) = P\bigg(Z \leq \frac{150-160}{12.6490}\bigg) = P(Z \leq -0.7906) = 0.2146
+      \end{align*}
+      With correction
+      \begin{align*}
+        P(X \leq 150) = P\bigg(\frac{150+0.5 - 160}{12.6490}\bigg) = P(Z \leq -0.7510) = 0.2263
+        \end{align*}
+ The exact answer computed by Matlab is 0.288, so we see that the correction is a better result.     
+      
+      
+}
+\subsection{Normal Approximation to Hypergeometric}
+Recall that a binomial distribution approximates a Hypergeometric when the sample size $n$ is much smaller than the population size $N$. Text suggests $\frac{n}{N} < 0.1$. More conservative range requires $\frac{n}{N} < 0.05$. Here $p=\frac{K}{N}$. So here $p = \frac{K}{N}$. So if $\frac{n}{N} < 0.05$ and $n$ is large, we can use the normal approximation to the Hypergeometric. Look at examples on the next page.
+  \end{document}

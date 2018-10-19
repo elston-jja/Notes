@@ -1,0 +1,84 @@
+\documentclass[12pt, titlepage, oneside]{article}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{siunitx, booktabs, amsmath, enumitem, pdfpages,mathrsfs,tabularx,caption, graphicx, pgfplots, textcomp,wrapfig, commath, svg}
+
+\usepackage{parskip}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{detect-weight=true, detect-family=true}
+
+\setlength\parindent{0pt}
+
+\let\oldhat\hat
+\let\oldvec\vec
+\newcommand{\cross}{\bm{\times}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\usepackage{bm}
+\renewcommand{\vec}[1]{\oldvec{\bm{#1}}}
+\renewcommand{\hat}[1]{\oldhat{\bm{#1}}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\de}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+
+\begin{document}
+	
+	\setcounter{section}{4}
+	\setcounter{page}{13}
+	
+	\section{Independence}
+	
+	When two probabilities are \b{independent} it means that knowledge that other occurred, does not change the probability of the other. Mathematically speaking, we arrive at the conclusion below
+	\begin{align}
+	P(B|A) = P(B)
+	\end{align}
+	From this equation we can see that the occurrence of event $A$ does not change $P(B)$. Since the probabilities do not affect each other, we call $A$ and $B$ independent events. We can recall from the earlier section
+	\begin{align}
+	P(B|A) = \frac{P(B \cap A)}{P(A)} 
+	\end{align}
+	In order to obtain equation (1) from equation (2), the following has to be true 
+	\begin{align}
+	P(A \cap B) = P(A) P(B)
+	\end{align}
+	This answer follows symmetry as $P(A \cap B) \equiv P(B \cap A)$.
+
+    The following are of independent events: $A', B$ or $A', B'$ or $A, B'$. For each pair we see that the probability of the other does not get affected. For example, $P(A'|B)$ since we know that $B \subset A'$ so it does not change the probability of $A'$ occurring.
+	
+	Events $A_1, A_2, ... , A_n$ are independent if
+    \begin{align}
+      P(\cap^k_{j=1}A_{i_j}) = \prod^k_{j=1} P(A_{i_j})
+      \end{align}
+      for any $k \geq 2$ and any subset of events \{ $ A_{i_1}, ... , A_{i_k} $ \}
+
+      Equation (4) simply states that any event $A_n$ is independent if the intersection of any subset\b{s} $A_{i_k}$, where $k \geq 2$ would simply yield the product of the probability of the events.
+
+      \de{
+        \b{Example } 30\% of a company's washing machines require services under warranty, 10\% of its dryers needs service as well. If someone pays for a washer and dryer, what is the probability that both machines require service? Assume independence
+        \\
+
+        \b{Ans.} Let $A$ be the event that the washer needs service, and let $B$ be the event that the dryer needs service.
+        \begin{align*}
+          P(A \cap B) = P(A)P(B) = (0.1)(0.3) = 0.03
+          \end{align*}
+        }
+
+        \subsection{Reliability}
+        The reliability of a device or system is the probability that it operates for a specified duration.
+
+        Let $A$ and $B$ be components in a circuit
+
+        For parallel circuits, the reliability would be the probability of either component working (this is because if one or the other works, the circuit will work).
+        \begin{align*}
+          P(\text{Reliability}) = P(A \cup B) = P(A) + P(B) -P(A \cap B)
+          \end{align*}
+          For series circuits, the reliability would be the probability of both components working (this is because if one or the other fails, the circuit will not work).
+          \begin{align*}
+            P(\text{Reliability}) = P(A \cap B) = P(A) P(B)
+          \end{align*}
+          If given probability of failure and asked for the total failure probability, then parallel would be the probability of both failing, and series would be the probability of either failing.
+\end{document}

@@ -1,0 +1,94 @@
+\documentclass[12pt, titlepage, oneside]{article}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{siunitx, booktabs, amsmath, enumitem, pdfpages,mathrsfs,tabularx,caption, graphicx, pgfplots, textcomp,wrapfig, commath, svg}
+
+\usepackage{parskip}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{detect-weight=true, detect-family=true}
+
+\setlength\parindent{0pt}
+
+\let\oldhat\hat
+\let\oldvec\vec
+\newcommand{\cross}{\bm{\times}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\usepackage{bm}
+\renewcommand{\vec}[1]{\oldvec{\bm{#1}}}
+\renewcommand{\hat}[1]{\oldhat{\bm{#1}}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\de}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+
+\begin{document}
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction to Probability and Statistics}
+
+
+This course deals with data, generally numbers, that may arise in experiments or in observations and whose values cannot be predicted with certainty in advance (\b{non-deterministic}). Source of uncertainty lies in the variation of conditions or incomplete knowledge. Some  can be controlled and modeled. But there is always some residual variation that is left over, no matter how good the model.
+
+
+\b{Statistics:} body of scientific knowledge that deals with the collection, description, analysis, and interpretation of observations or experimental results. 
+
+\b{Probability:} Body  of  scientific  knowledge  that provides  the  language  and  tools  for  carrying out statistics
+
+\b{Population:} Set of individuals or objects being studied (real or hypothetical)
+ 
+\b{Experiment $\mathcal{E}$:} Mechanism for selecting a set/multi set of a population. Usual assumption is that each member of the population has the same chance begin selected. Examples: randomize patients to treat, determine population decline, coin tosses
+
+\b{Random Variable X:} Value attached to each member of a population.
+
+\b{Probability Distribution P:} Description of all values X can take, including multiplicities. Essentially says how often values are repeated. Important because some are more prevalent than others.
+
+\b{Parameter $\theta$:} Characteristic of a population (or equivalently, distribution) such as an average
+
+\b{Sample Space S:} Set of all possible outcomes of an experiment. Comprised of sample points \{s\}. Discrete or continuous. Finite or infinite.
+
+\b{Event E:} A subset of a sample space
+
+\b{Random Sample: } The subset of the population obtained via experiment
+
+\b{Data: } Values of the random variables in the random sample. Denoted by \{ $x_1, x_2, x_3,...,x_n$\}
+
+\de{
+\b{Example 2.3: } A communication system sends messages back and forth. The messages can wither be late or on time. There are three messages analyzed. Describe the sample space (how many outcomes are possible).
+
+\b{Ans.} The first one can be either on time or late, the second can also be on time or late, and the third can be on time or late. Each messages can take on two different states. Thus we multiply together all the possible outcomes for each, and we get:
+
+\begin{align*}
+2 * 2 * 2 = 2^3 = 8
+  \end{align*}
+
+}
+
+
+\de{
+  \b{Example 2.4: } A car company produces a car which can be customized with the following: 2 types of gear shits, 2 types of sunroofs, 3 types of stereo, and 4 types of colors. How many sample points are in S?
+  \b{Ans.} We use the rule of multiplying through the different options we have.
+  \begin{align*}
+    |S| = 2* 2* 3 * 4 = 48
+    \end{align*}
+  
+  }
+
+  Notation:
+
+  \b{Union}: $E_1 \cup E_2$ |
+  \b{Intersect}: $E_1 \cap E_2$ |
+  \b{Complement}: $E'$ |
+  \b{Empty Set }: $\emptyset$
+  
+  \b{DeMorgan's Laws:} $(A\cup B)' = A' \cap B'$ |
+  \b{Distributive Laws: } $(A \cup B) \cap C = (A \cap C) \cup (B \cap C)$
+  
+\end{document}

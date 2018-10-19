@@ -1,0 +1,119 @@
+\documentclass[12pt, titlepage, oneside]{article}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{siunitx, booktabs, amsmath, enumitem, pdfpages,mathrsfs,tabularx,caption, graphicx, pgfplots, textcomp,wrapfig, commath, svg}
+
+\usepackage{amssymb}
+
+\usepackage{parskip}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{detect-weight=true, detect-family=true}
+
+\setlength\parindent{0pt}
+
+\let\oldhat\hat
+\let\oldvec\vec
+\newcommand{\cross}{\bm{\times}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\usepackage{bm}
+\renewcommand{\vec}[1]{\oldvec{\bm{#1}}}
+\renewcommand{\hat}[1]{\oldhat{\bm{#1}}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\de}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+
+\begin{document}
+	\section{Exponential Distribution}
+	
+The Poisson distribution defined a random variable to be the number of flaws along a length of copper wire (we were able to find the probability of $n$ flaws along the length of the cable).
+
+Now we are interested in the \b{distance between flaws}. 
+
+Let $X$ be the length from any starting point on the wire until the first flaw is detected. Thus we see that the distribution of $X$ can be found using our knowledge from the distribution of the number of flaws. 
+
+In general, let the random variable $N$ denote the number of flaws in $x$ millimetres of wire. If the mean number of flaws is $\lambda$ per millimetre, $N$ has a Poisson distribution with mean $\lambda x$. We assume that the wirer is longer than the value of $x$. 
+
+We need to find the probability of finding no flaws in $x$ length of the cable.
+\begin{align}
+	P(N = 0) = \frac{e^{-\lambda x} (\lambda x )^0}{0!} = e^{-\lambda x}
+\end{align}
+Now we need to find the c.d.f (which sums up the probability of finding no flaws before $x$)
+\begin{align}
+F(x) = P(X \leq x) = \int_0^x e^{-\lambda u} \,\,1du =  1 - e^{-\lambda x} ,\hspace{5mm}  x \geq 0
+\end{align}
+
+From this we see that
+\begin{align}
+P(X > x) = P(X \geq x ) = 1 - F(x) = 1 - ( 1 - e^{-\lambda x}) = e^{-\lambda x}, \enspace x \geq 0
+\end{align}
+This equation models the probability of not finding a flaw after length $x$, but we can see it is the exact same equation as (1)
+
+
+Now we differentiate to find the p.d.f for finding no flaws in various lengths
+\begin{align}
+f(x) = \lambda e^{-\lambda x}, \hspace{5mm} x \geq 0
+\end{align}
+
+The probability density function of $X$ $f(x) = \lambda e^{-\lambda x} $ has a domain $0 \leq x  \leq \infty$
+	
+	If the random variable $X$ has an exponential distribution with parameter $\lambda$, then 
+	\begin{align}
+	\mu = E(X) = \frac{1}{\lambda}\\
+	\mu^2 = V(X) = \frac{1}{\lambda^2}
+	\end{align}
+	
+	\de{
+		\b{Example 4.21} In a large corporate office, user logins to the system can be modelled by a poisson process with a mean of 25 logins per hour. What is the probability of no logins in an interval of six minutes?
+		\\
+		
+		\b{Ans. } $6min  = 6/60 = 0.1 hours$
+		\begin{align}
+		P(X > 0.1) = \int_{0.1}^{\infty} 25e^{-25x} \, dx = e^{-2.5} = 0.082
+		\end{align}
+}
+
+\de{ \b{Example 4.22} Let $X$ denote the time between detections of a particle with a Geiger counter and assume that $X$ has an exponential distribution with $E(X) = 1.4$ minutes. Find the probability that we detect a particle within 30 seconds of starting the counter.
+	\\
+	
+	\b{Ans.}
+	\begin{align*}
+	P(X < 0.5) = F(0.5) = 1-e^{0.5/1.4} = 0.30
+	\end{align*}
+}
+\de{
+	\b{Example 4.22 Contd.} What is the probability that we will find a detection within the next 30 seconds after knowing there was no detection after 3 minutes?
+	\\
+	
+	\b{Ans.} 
+	\begin{align}
+		P(X < 3.5 | X > 3) = P(3 < X < 3.5) / P(X > 3)
+	\end{align}
+	Since we know
+	\begin{align}
+		P( 3 < X < 3.5) = F(3) - F(3.5) = 0.035
+	\end{align}
+	Thus we see that
+	\begin{align}
+		P( X > 3.5 | X > 3) = \frac{0.035}{0.117} = 0.30
+	\end{align}
+	But we realize that its the same as though we simply waited for 30 seconds
+	\begin{align}
+	P(X < 0.5) = F(0.5) = 1- e^{-0.5/1.4} = 0.30
+	\end{align}
+	
+}
+
+From this we see that the exponential random variable follows the \b{Loss of Memory Property} which is simply put mathematically as
+\begin{align}
+P(X < t_1 + t_2 | X > t_1) = P(X < t_2)
+\end{align}
+This simply means that it does not matter how long you have waited previously, the probability of a future event happening in the next $n$ minutes is the same as if you just started the experiment and waited $n$ minutes.
+
+
+	\end{document}

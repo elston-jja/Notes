@@ -1,0 +1,135 @@
+\documentclass[12pt, titlepage, oneside]{article}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{siunitx, booktabs, amsmath, enumitem, pdfpages,mathrsfs,tabularx,caption, graphicx, pgfplots, textcomp,wrapfig, commath, svg}
+
+\usepackage{amssymb}
+
+\usepackage{parskip}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{detect-weight=true, detect-family=true}
+
+\setlength\parindent{0pt}
+
+\let\oldhat\hat
+\let\oldvec\vec
+\newcommand{\cross}{\bm{\times}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\usepackage{bm}
+\renewcommand{\vec}[1]{\oldvec{\bm{#1}}}
+\renewcommand{\hat}[1]{\oldhat{\bm{#1}}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\de}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+
+\begin{document}
+	
+	\setcounter{section}{6}
+	\setcounter{page}{19}
+
+    \section{Distributions}
+    
+    \subsection{Binomial Distribution}
+
+\b{When to use:} If there is $n$ trials with probability of success $p$ and $x$ successes. The $x$ successes can occur at any trial (This is why we have to multiply by $_n\text{C}_x$).
+    
+    \b{Requirements:}
+    \begin{itemize}
+      \item $n$ independent trials: This means the outcome of the  previous trial does not affect the next trial
+      \item Each trial has to be a \textit{Bernoulli Trial}: Each trial must only have two outcomes (1 or 0, yes or no, success or failure)
+      \item Probability of success in each trial is constant: $p$ does not change on any trial
+    \end{itemize}
+
+    Let $X$ be the number of successes over running the experiment $n$ times
+    \begin{align}
+      P(X = x) = {n \choose x} p^x (1-p)^{n-x}
+    \end{align}
+    We should note that $x \in \mathbb{Z}^+$ and $x \in \{ 0,1,2,..,n\}$ 
+
+    \begin{itemize}
+      \item   The mean of a binomial random variable $X$ is $ \mu = np$
+      \item  The variance of a binomial random variable $X$ is $\sigma^2 = np(1-p)$
+      \item The standard deviation of a binomial random variable $X$ is $\sigma = \sqrt{np(1-p)}$
+    \end{itemize}
+    
+    \subsection{Geometric Distribution}
+
+    \b{When to use:} If we perform $X$ trials with probability of success $p$. We continue to perform trials until we reach a success $p$.
+    
+    \b{Requirements:}
+    \begin{itemize}
+      \item $X$ independent trials
+      \item Bernoulli trials
+      \item Probability of success in each trial is constant
+    \end{itemize}
+
+    Let $X$ be the number of trials until the first success
+    \begin{align}
+      P(X = x) = (1-p)^{x-1}p
+    \end{align}
+    We should note that $x \in \mathbb{Z}^+$
+    \begin{itemize}
+      \item The mean of a geometric random variable is $\mu = 1/p$
+      \item The variance of a geometric random variable is $\sigma^2 = (1-p)/p^2$
+    \end{itemize}
+
+    \subsection{Negative Binomial Distribution}
+    \b{When to use:} When you have $x$ trials with probability of success $p$ and $r$ successes. The difference between binomial and negative binomial is that negative binomial distributions stop at the $r^{th}$ success. The wording of the question may use the phrase ``Until the r$^{th}$ success'', so we know our last trial must be a success.
+
+    \b{Requirements: }
+    \begin{itemize}
+      \item $x$ independent trials
+      \item Bernoulli trials
+      \item $r$ successes required to occur
+      \end{itemize}
+    \begin{align}
+      P(X = x) = { n - 1 \choose r - 1} p^{r}(1-p)^{n-r}
+      \end{align}
+      We should note that $x \in \mathbb{Z}^+$ and $x \in \{ r, r + 1, r + 2, ...\}$.
+      \begin{itemize}
+        \item The mean of a negative geometric random variable is $\mu = r/p$
+        \item The variance of a negative geometric random variable is $\sigma^2 = r(1-p)/p^2$
+      \end{itemize}
+
+      \subsection{Hyper geometric Distribution}
+      \b{When to use:} When you have a finite population of $N$ objects with two classes: $K$ objects conform and $K-1$ non-conforming. We want to sample $n$ objects \b{without replacement}.
+
+      \b{Requirements:}
+      \begin{itemize}
+        \item A set of N objects split into two classes of $K$ conforming and $K-1$ non-conforming
+        \item Bernoulli trials
+        \item Sample without replacement
+      \end{itemize}
+
+      Let $X$ be the number of objects we sample from the working class
+      \begin{align}
+        P(X = x) = \dfrac{ \dbinom{K}{x} \dbinom{N-K}{n-x}}{\dbinom{N}{n}}
+        \end{align}
+        \begin{itemize}
+          \item The mean of a hyper geometric random variable is $\mu = n p = n \dfrac{K}{N}$
+          \item The variance of a hyper geometric random variable is $\sigma^2 = np(1-p)\bigg(\dfrac{N-n}{N-1}\bigg)$ where $p = \dfrac{K}{N}$
+          \item $\bigg(\dfrac{N-n}{N-1}\bigg)$ is known as the correction factor for sampling without replacement
+        \end{itemize}
+
+        \subsection{Poisson Distribution}
+        \b{When to use:} When we know an average per unit and want to create a distribution of probability based on the average.
+
+        \b{Requirements:}
+        \begin{itemize}
+          \item $\lambda$ : average per unit
+          \item $T$ the amount of units we are going to base our distribution
+          \end{itemize}
+
+          Let $X$ be the number of events in a Poisson process.
+        \begin{align}
+          P(X = x) = \frac{e^{-\lambda T}(\lambda T)^x}{x!}
+          \end{align}
+
+        
+    \end{document}
