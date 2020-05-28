@@ -1,4 +1,4 @@
-# Cisco AnyConnect on ArchLinux using McMaster University
+# Cisco AnyConnect on ArchLinux for McMaster University
 
 If you needed to work from home and wanted to use a better vpn client then you can always try `openconnect`
 
@@ -113,4 +113,4 @@ This should bring up the client. Follow the steps outlined on the Mcmaster UTS p
 
 Once on the VPN, disconnect and make sure you now have the `McMasterProfile2012.xml` profile downloaded in `/opt/cisco/anyconnect/profiles`.
 
-If any problem arrises where you get a "file move error", try restarting and trying again. 
+If any problem arrises where you get a "file move error", try restarting your PC and trying again. 
