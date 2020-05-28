@@ -1,0 +1,122 @@
+\documentclass[12pt, titlepage, oneside]{article}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{siunitx, booktabs, amsmath, enumitem, pdfpages,mathrsfs,tabularx,caption, graphicx, pgfplots, textcomp,wrapfig, commath, svg}
+
+\usepackage{parskip}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{detect-weight=true, detect-family=true}
+
+\setlength\parindent{0pt}
+
+\let\oldhat\hat
+\let\oldvec\vec
+\newcommand{\cross}{\bm{\times}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\usepackage{bm}
+\renewcommand{\vec}[1]{\oldvec{\bm{#1}}}
+\renewcommand{\hat}[1]{\oldhat{\bm{#1}}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\de}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+
+\begin{document}
+	
+	\setcounter{section}{5}
+	\setcounter{page}{15}
+    \section{Discrete Random Variables, P.M.F, and C.D.F}
+    \b{Random variables} are the numerical data gathered from experiments. From a previous note recall that the definition of a random variable $X$ is \textit{a real function on sample space} $S$
+
+    $X$ is \b{Discrete} if its possible values are finite or countably infinite set of real numbers.
+
+    $X$ is \b{Continuous} if possible values are an interval on the real number line
+
+    The \b{probability mass function}(p.m.f) of a discrete random variable $X$ is the function
+    \begin{align}
+      f(x) =  P(X = x)
+    \end{align}
+    $\mathcal{R}_X$ denotes the range of $X$ can be either \{$x_1, x_2 ,.., x_n$\} or \{$x_1, x_2 ,...$\} depending if $X$ is finite or countably infinite.
+
+    The p.m.f has the following properties
+    \begin{enumerate}
+      \item $f(x_i) \geq 0 $ : The probability mass function given any $x$ will be greater than zero
+      \item $\sum_i f(x_i) = 1$ : The sum of the probability mass function over every random variable is 1
+      \item $f(x_i) = P(X = x_i)$ : The probability mass function at $x_i$ is always equal to the probability of $x_i$
+    \end{enumerate}
+    It follows from the addition of probability that for any set of real numbers $A$
+    \begin{align}
+      \sum_{x_i\in A} f(x_i) = P(X \in A)
+    \end{align}
+    This simply states that for any set of real numbers $A = \{0,1,2,...,N\}$ the probability of $A$ is the sum of the probability of every real number in $A$.
+
+    \de{ \b{Example 3.5 } Let $X = $ \# of semiconductor wafers that need to be analyzed to first detect a large particle of contamination. Wafers are independently contaminated each with a probability of 0.01. Find $P(X > 10)$.
+      \\
+
+      \b{Ans.} We know that $P(X > 10) = 1 - P(X \leq 10)$. So we need to find $P(X \leq 10)$. Notice that we look at $x-1$ wafers of non-contaminated wafers, until we reach $1$ which is contaminated. Thus our equation follows a simple geometric distribution.
+      \begin{align*}
+        P(X = x) = (0.99)^{x-1}(0.01)
+      \end{align*}
+      Now we needed to solve for $P(X \leq 10)$
+      \begin{align*}
+        P(X = 10) = (0.99)^{9}(0.01) = 0.009135172 \quad
+        P(X = 9 ) = (0.99)^{8}(0.01) = 0.009227446 \\
+        P(X = 8 ) = (0.99)^{7}(0.01) = 0.009320653 \quad
+        P(X = 7 ) = (0.99)^{6}(0.01) = 0.009414801\\
+        P(X = 6 ) = (0.99)^{5}(0.01) = 0.009509900 \quad
+        P(X = 5 ) = (0.99)^{4}(0.01) = 0.009605960\\
+        P(X = 4 ) = (0.99)^{3}(0.01) = 0.009702990 \quad
+        P(X = 3 ) = (0.99)^{2}(0.01) = 0.009801000\\
+        P(X = 2 ) = (0.99)^{1}(0.01) = 0.009900000 \quad
+        P(X = 1 ) = (0.99)^{0}(0.01) = 0.010000000
+      \end{align*}
+      So $P(X \leq 10) = 0.09561792499$. Now we need to get $P(X > 10)$
+      \begin{align*}
+        P(X > 10) = 1 - 0.09561792499 = 0.904382750
+        \end{align*}
+      }
+
+      The \b{Cumulative Distributive Function}(c.d.f) of $X$ is the function
+      \begin{align}
+        F(x) \equiv P(X \leq x) = \sum_{x_i \leq x} f(x_i)
+      \end{align}
+
+      The c.d.f follows the following properties
+      \begin{enumerate}
+        \item $ 0 \leq F(X) \leq 1$ : The c.d.f can only range between numbers from 0 to 1
+        \item $F(x) = P(X \leq x) = \sum_{x_i \leq x} f(x_i)$ : The c.d.f is the sum of the p.m.f from every $x_i$ less than or equal to the given $x$
+        \item If $ x \leq y$, then $F(x) \leq F(y)$ : The c.d.f is non-decreasing as it is sum of the p.m.f's  $x_i \leq x$ and p.m.f $\geq 0$ 
+      \end{enumerate}
+      \de{
+        \b{Example 3.6 } Change the following values gathered from a p.m.f to a c.d.f
+        \begin{center}
+        \begin{tabular}{c|ccc}
+          $x$ & 0 & 1 & 2\\ \toprule
+          $f(x)$ & 0.1 & 0.4 & 0.5 
+        \end{tabular}
+        \end{center}
+        
+        \b{Ans.} The c.d.f is as follows
+        \[ F(x) = \begin{cases} 
+            0 & x < 0 \\
+            0.1 & 0 \leq x < 1 \\
+            0.5 & 1 \leq x < 2 \\
+            1.0 & 2 \leq x
+   \end{cases}
+\]
+}
+
+We can also see that it is easy to revert from a c.d.f to a p.m.f
+\begin{align}
+  f(x) = F(x) - \lim_{t \to x^-}F(t)
+  \end{align}
+or for any $a < b$
+\begin{align}
+  f(a \leq x \leq b) = F(b) - \lim_{t \to a^-} F(t)
+  \end{align}
+    \end{document}

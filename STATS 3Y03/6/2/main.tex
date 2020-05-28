@@ -1,0 +1,135 @@
+\documentclass[12pt, titlepage, oneside]{article}
+
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{siunitx, booktabs, amsmath, enumitem, pdfpages,mathrsfs,tabularx,caption, graphicx, pgfplots, textcomp,wrapfig, commath, svg}
+
+\usepackage{parskip}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{detect-weight=true, detect-family=true}
+
+\setlength\parindent{0pt}
+
+\let\oldhat\hat
+\let\oldvec\vec
+\newcommand{\cross}{\bm{\times}}
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+
+\usepackage{bm}
+\renewcommand{\vec}[1]{\oldvec{\bm{#1}}}
+\renewcommand{\hat}[1]{\oldhat{\bm{#1}}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\de}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+
+\newcommand{\be}{\begin{equation*}}
+\newcommand{\ee}{\end{equation*}}
+
+\begin{document}
+	
+	\setcounter{section}{5}
+	\setcounter{page}{17}
+
+    \section{Mean and Variance}
+
+    The \b{mean} $\mu$ or \b{expected value} $E[X]$ of the discrete random variable is known as the center of a probability distribution
+    \begin{align}
+      \mu = E[X] = \sum_x x f(x)
+    \end{align}
+    The \b{variance} $\sigma^2$ or $V[X]$ of $X$ is a measure of the dispersion, or variability in the distribution
+    \begin{align}
+      \sigma^2 = V[X] = E(X - \mu)^2 = \sum_x(x- \mu)^2f(x) = \sum_x x^2 f(x) - \mu^2
+    \end{align}
+    Lastly the standard deviation $\sigma$ of a distribution is
+    \begin{align}
+      \sigma = +\sqrt{\sigma^2} = +\sqrt{V[X]}
+    \end{align}
+
+    At first glance variance may look daunting to calculate, but all equations are the same.
+
+    
+    \b{Proof.} Show that $E(X - \mu)^2 = \sum_x(x- \mu)^2 f(x) = \sum_x x^2 f(x) - \mu^2$
+    \begin{align*}
+      E(X - \mu)^2 =  \sum_x (X - \mu)^2 f(x)
+    \end{align*}
+    and
+    \begin{align*}
+      \sum_x (X - \mu)^2 f(x) &= \sum_x (x^2 - 2 x \mu + \mu^2) f(x) \\[2mm] 
+                              &= \sum_x x^2 f(x) - 2 \big(\sum_x x f(x) \big)\mu  + \sum_x \mu^2 f(x) \\[2mm]
+                              &= \sum_x x^2 f(x) - 2 \mu^2 + \mu^2 \sum_x f(x) \\[2mm]
+                              &= \sum_x x^2 f(x) - 2 \mu^2 + \mu^2 (1) \\[2mm]
+                              &= \sum_x x^2 f(x) - \mu^2
+    \end{align*}
+    \de{
+      \b{Use case 1: $\mu$ :} Principal of Least Squares:  Find the value $a$ that minimizes the sum of the squares
+      \begin{align*}
+        L(a) = \sum_x (x-a)^2f(x)
+      \end{align*}
+      In order to minimize $L(a)$, we need to find $dL/da = 0$
+      \begin{align*}
+        \frac{d}{da}\sum_x (x-a)^2 f(x) &= \sum_x -2(x-a)f(x) = 0 \\
+        \sum_x x f(x) &= a \sum_x f(x) \\
+        \mu &= a 
+      \end{align*}
+      So we can see the value of $a = \mu$ minimizes $L(a)$  
+    }
+
+    \de{
+      \b{Use case 2: $\mu$ :} Center of Mass: Suppose we have masses $f(x_i)$ at locations $x_i$ on a massless wire. Let $m$ be the center of mass defined by
+      \begin{align*}
+        \sum_x f(x)(x-m) = 0
+      \end{align*}
+      Since $m$ is the center of a function which distributes mass, we know $m = \mu$ because $\mu$ describes the center of a distribution.
+    }
+    
+    \de{
+      \b{Use case 3: $\mu$ :} $\mu$ is the average value of $X$ over repeated observations.
+      
+    }
+
+    \de{ \b{Use case 4: $\mu$ :} For equally likely outcomes $\mu$ is the average of all possible outcomes.
+      
+    }
+    \subsection{Expected Value of a Function of X}
+    
+    Let $Y = h(X)$ so it is also a random variable with its own p.m.f $f_Y(y)$. By definition
+    \begin{align}
+      E[Y] = \sum_y y f_Y(y)
+    \end{align}
+    It can be shown that the equation above can be written as a function of $X$
+    \begin{align}
+      E[h(X)] = h(x) f_X(x) 
+    \end{align}
+    So we notice that $V[X] = E[(X-\mu)^2]$, we can also find that $V[x] = E[X^2] - (E[X])^2$
+
+    \b{Proof:}
+    \begin{align*}
+      E[(X - \mu)^2] &= E[X^2 - 2X\mu + \mu^2]\\
+                     &= E[X^2] - 2\mu E[X] + \mu^2\\
+                     &= E[X^2] - \mu^2\\
+                     &= E[X^2] - (E[x])^2
+     \end{align*}
+     The following shows the linearity of mean and variance: Let $a$ and $b$ be constants
+    \begin{enumerate}
+      \item $E[aX + b] = aE[X] +b$
+
+      \b{Proof:}
+      \begin{align*}
+        E[aX+b] &= \sum_x (ax+b) f(x) \\
+                &= a\sum_x xf(x) + b \sum_x f(x)\\
+                &= aE[X] + b
+      \end{align*}
+      \item $V[aX+b] = a^2 V[X]$
+
+      \b{Proof:}
+      \begin{align*}
+        V[aX+b] &= E[(aX+b)^2]- (E[aX+b])^2\\
+                &= E[(aX)^2 + 2 aXb + b^2] - (aE[X] + b)^2\\
+                &= a^2E[X^2] + 2ab E[X] + b^2 - a^2(E[X])^2 - 2ab E[X] + b^2\\
+                &= a^2E[X^2] - a^2(E[X])^2\\
+                &= a^2(E[X^2] - (E[X])^2)\\
+                &= a^2V[X]
+        \end{align*}
+      \end{enumerate}
+    \end{document}
